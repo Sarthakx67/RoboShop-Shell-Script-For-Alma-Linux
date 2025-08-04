@@ -76,7 +76,7 @@ VALIDATE $? "changing directory"
 
 # VALIDATE $? "copying repo"
 
-cp /RoboShop-Shell-Script-For-Alma-Linux/07-catalogue.service  /etc/systemd/system/catalogue.service &>>$LOGFILE  #
+cp /root/RoboShop-Shell-Script-For-Alma-Linux/07-catalogue.service  /etc/systemd/system/catalogue.service &>>$LOGFILE  #
 
 VALIDATE $? "copying catalogue.service"
 
@@ -92,7 +92,7 @@ systemctl start catalogue &>>$LOGFILE
 
 VALIDATE $? "Starting Catalogue"
 
-cp /root/RoboShop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE   #
+cp /RoboShop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE   #
 
 VALIDATE $? "Copying mongo repo"
 
