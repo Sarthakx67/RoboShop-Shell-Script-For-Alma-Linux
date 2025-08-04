@@ -68,7 +68,7 @@ VALIDATE $? "changing directory"
 
 # VALIDATE $? "copying repo"
 
-cp /Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
+cp /root/Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
 VALIDATE $? "copying roboshop config"
 
