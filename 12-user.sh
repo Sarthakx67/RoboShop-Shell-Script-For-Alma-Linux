@@ -98,9 +98,9 @@ cd /Roboshop-Shell-Script-For-Alma-Linux
 
 cp /01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
-cd /app
-
 VALIDATE $? "Copying mongo repo"
+
+cd /app
 
 yum install mongodb-org-shell -y &>>$LOGFILE
 
