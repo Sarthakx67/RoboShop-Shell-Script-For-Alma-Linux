@@ -68,7 +68,7 @@ npm install &>>$LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
-cd /home/ec2-user/    #
+cd /    #
 
 VALIDATE $? "changing directory"
 
@@ -76,7 +76,7 @@ git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git
 
 VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/11-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
+cp /Roboshop-Shell-Script-For-Alma-Linux/11-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
 
 VALIDATE $? "copying user.service"
 
@@ -92,7 +92,7 @@ systemctl start user &>>$LOGFILE
 
 VALIDATE $? "Starting user"
 
-cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp /Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
 VALIDATE $? "Copying mongo repo"
 
