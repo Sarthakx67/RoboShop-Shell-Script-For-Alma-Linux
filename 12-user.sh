@@ -84,7 +84,7 @@ systemctl start user &>>$LOGFILE
 
 VALIDATE $? "Starting user"
 
-cp /home/ec2-user/Roboshop-Shell-Script/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
 VALIDATE $? "Copying mongo repo"
 

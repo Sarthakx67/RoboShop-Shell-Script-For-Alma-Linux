@@ -70,7 +70,7 @@ VALIDATE $? "copying repo"
 
 cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
 
-VALIDATE $? "copying catalogue.service"
+VALIDATE $? "copying cart.service"
 
 systemctl daemon-reload &>>$LOGFILE
 

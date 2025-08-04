@@ -84,7 +84,7 @@ systemctl start catalogue &>>$LOGFILE
 
 VALIDATE $? "Starting Catalogue"
 
-cp /home/ec2-user/Roboshop-Shell-Script/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE   #
+cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE   #
 
 VALIDATE $? "Copying mongo repo"
 
@@ -92,6 +92,6 @@ yum install mongodb-org-shell -y &>>$LOGFILE
 
 VALIDATE $? "Installing mongo client"
 
-mongo --host mongodb.stallions.space </app/schema/catalogue.js &>>$LOGFILE   #
+mongo --host mongodb.stallions.space < /app/schema/catalogue.js &>>$LOGFILE   #
 
 VALIDATE $? "loading catalogue data into mongodb"
