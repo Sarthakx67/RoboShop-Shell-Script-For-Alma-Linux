@@ -60,13 +60,13 @@ unzip /tmp/web.zip &>>$LOGFILE
 
 VALIDATE $? "unzipping web artifact"
 
-cd /home/ec2-user/    #
+cd /  #
 
 VALIDATE $? "changing directory"
 
-git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
+# git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
-VALIDATE $? "copying repo"
+# VALIDATE $? "copying repo"
 
 cp /Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
