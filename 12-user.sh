@@ -92,6 +92,8 @@ systemctl start user &>>$LOGFILE
 
 VALIDATE $? "Starting user"
 
+cd /app
+
 cp /Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
 VALIDATE $? "Copying mongo repo"
@@ -100,6 +102,6 @@ yum install mongodb-org-shell -y &>>$LOGFILE
 
 VALIDATE $? "Installing mongo client"
 
-mongo --host mongodb.stallions.space < /app/schema/user.js &>>$LOGFILE
+mongo --host mongodb.stallions.space </app/schema/user.js &>>$LOGFILE
 
 VALIDATE $? "loading user data into mongodb"
