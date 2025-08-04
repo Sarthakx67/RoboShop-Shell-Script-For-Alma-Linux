@@ -106,6 +106,6 @@ yum install mongodb-org-shell -y &>>$LOGFILE
 
 VALIDATE $? "Installing mongo client"
 
-mongo --host mongodb.stallions.space </app/schema/user.js &>>$LOGFILE
+mongo --host mongodb.stallions.space < /app/schema/user.js &>>$LOGFILE
 
 VALIDATE $? "loading user data into mongodb"
