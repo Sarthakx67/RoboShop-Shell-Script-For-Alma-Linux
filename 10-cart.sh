@@ -64,11 +64,11 @@ cd /home/ec2-user/    #
 
 VALIDATE $? "changing directory"
 
-git clone https://github.com/Sarthakx67/Roboshop-Shell-Script.git  #
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
 VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
+cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
 
 VALIDATE $? "copying catalogue.service"
 

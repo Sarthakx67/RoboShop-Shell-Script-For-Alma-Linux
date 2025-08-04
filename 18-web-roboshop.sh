@@ -64,11 +64,11 @@ cd /home/ec2-user/    #
 
 VALIDATE $? "changing directory"
 
-git clone https://github.com/Sarthakx67/Roboshop-Shell-Script.git  #
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
 VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
+cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
 VALIDATE $? "copying roboshop config"
 
