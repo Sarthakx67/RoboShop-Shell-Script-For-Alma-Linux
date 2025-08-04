@@ -92,6 +92,8 @@ systemctl start user &>>$LOGFILE
 
 VALIDATE $? "Starting user"
 
+touch /etc/yum.repos.d/mongo.repo
+
 cd /app
 
 cp /Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
