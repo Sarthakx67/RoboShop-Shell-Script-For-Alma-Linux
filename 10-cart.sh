@@ -76,7 +76,7 @@ VALIDATE $? "changing directory"
 
 # VALIDATE $? "copying repo"
 
-cp /RoboShop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
+cp /root/RoboShop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
 
 VALIDATE $? "copying cart.service"
 
