@@ -68,6 +68,8 @@ VALIDATE $? "changing directory"
 
 # VALIDATE $? "copying repo"
 
+touch /etc/yum.repos.d/roboshop.conf
+
 cp /root/Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
 VALIDATE $? "copying roboshop config"
