@@ -26,6 +26,11 @@ VALIDATE(){
         echo -e "$2 ... $G SUCCESS $N"
     fi
 }
+setenforce 0  #
+
+yum install epel-release vim unzip git -y  #
+
+VALIDATE $? "installing important applications"
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 
