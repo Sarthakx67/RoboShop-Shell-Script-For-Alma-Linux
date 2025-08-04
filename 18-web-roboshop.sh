@@ -68,7 +68,7 @@ git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git
 
 VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
+cp /root/Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
 VALIDATE $? "copying roboshop config"
 
