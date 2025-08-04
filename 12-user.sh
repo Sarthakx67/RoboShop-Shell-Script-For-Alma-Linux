@@ -60,10 +60,17 @@ npm install &>>$LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
-# give full path of user.service because we are inside /app
-cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service &>>$LOGFILE
+cd /home/ec2-user/    #
 
-VALIDATE $? "copying user.service"
+VALIDATE $? "changing directory"
+
+git clone https://github.com/Sarthakx67/Roboshop-Shell-Script.git  #
+
+VALIDATE $? "copying repo"
+
+cp /home/ec2-user/Roboshop-Shell-Script/12-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
+
+VALIDATE $? "copying catalogue.service"
 
 systemctl daemon-reload &>>$LOGFILE
 
@@ -77,7 +84,7 @@ systemctl start user &>>$LOGFILE
 
 VALIDATE $? "Starting user"
 
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp /home/ec2-user/Roboshop-Shell-Script/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
 VALIDATE $? "Copying mongo repo"
 
@@ -85,6 +92,6 @@ yum install mongodb-org-shell -y &>>$LOGFILE
 
 VALIDATE $? "Installing mongo client"
 
-mongo --host mongodb.stallions.space </app/schema/user.js &>>$LOGFILE
+mongo --host mongodb.stallions.space < /app/schema/user.js &>>$LOGFILE
 
 VALIDATE $? "loading user data into mongodb"
