@@ -70,7 +70,7 @@ VALIDATE $? "changing directory"
 
 touch /etc/yum.repos.d/roboshop.conf
 
-cp /root/Roboshop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
+cp /root/RoboShop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
 VALIDATE $? "copying roboshop config"
 
