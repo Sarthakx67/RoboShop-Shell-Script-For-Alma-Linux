@@ -76,7 +76,7 @@ git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git
 
 VALIDATE $? "copying repo"
 
-cp /Roboshop-Shell-Script-For-Alma-Linux/11-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
+cp /RoboShop-Shell-Script-For-Alma-Linux/11-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
 
 VALIDATE $? "copying user.service"
 
