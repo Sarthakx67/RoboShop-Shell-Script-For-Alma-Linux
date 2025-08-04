@@ -52,7 +52,7 @@ fi
 
 mkdir /app &>>$LOGFILE
 
-curl -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$LOGFILE
+[ ! -f "/tmp/user.zip" ] && curl -s -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
 
 VALIDATE $? "downloading user artifact"
 

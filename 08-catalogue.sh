@@ -52,7 +52,7 @@ fi
 
 mkdir /app &>>$LOGFILE
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
+[ ! -f "/tmp/user.zip" ] && curl -s -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
 
 VALIDATE $? "downloading catalogue artifact"
 
