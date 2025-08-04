@@ -94,8 +94,9 @@ VALIDATE $? "Starting user"
 
 touch /etc/yum.repos.d/mongo.repo
 
-cp /root/Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp /RoboShop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
+VALIDATE $? "Copying mongo repo"
 VALIDATE $? "Copying mongo repo"
 
 cd /app
