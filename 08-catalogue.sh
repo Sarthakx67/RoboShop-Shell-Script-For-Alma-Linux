@@ -68,15 +68,15 @@ npm install &>>$LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
-cd /home/ec2-user/    #
+cd /     #
 
 VALIDATE $? "changing directory"
 
-git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
+# git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
-VALIDATE $? "copying repo"
+# VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/07-catalogue.service  /etc/systemd/system/catalogue.service &>>$LOGFILE  #
+cp /RoboShop-Shell-Script-For-Alma-Linux/07-catalogue.service  /etc/systemd/system/catalogue.service &>>$LOGFILE  #
 
 VALIDATE $? "copying catalogue.service"
 
@@ -92,9 +92,11 @@ systemctl start catalogue &>>$LOGFILE
 
 VALIDATE $? "Starting Catalogue"
 
-cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE   #
+cp /RoboShop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE   #
 
 VALIDATE $? "Copying mongo repo"
+
+cd /app
 
 yum install mongodb-org-shell -y &>>$LOGFILE
 

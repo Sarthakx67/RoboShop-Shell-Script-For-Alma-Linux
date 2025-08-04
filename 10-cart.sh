@@ -54,7 +54,7 @@ mkdir /app &>>$LOGFILE
 
 curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
 
-VALIDATE $? "downloading cart artifact"
+# VALIDATE $? "downloading cart artifact"
 
 cd /app &>>$LOGFILE
 
@@ -68,15 +68,15 @@ npm install &>>$LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
-cd /home/ec2-user/    #
+cd /      #
 
 VALIDATE $? "changing directory"
 
-git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
+# git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
-VALIDATE $? "copying repo"
+# VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
+cp /RoboShop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
 
 VALIDATE $? "copying cart.service"
 
