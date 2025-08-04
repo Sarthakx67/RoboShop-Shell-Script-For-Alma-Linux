@@ -72,9 +72,9 @@ cd /    #
 
 VALIDATE $? "changing directory"
 
-git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
+# git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
-VALIDATE $? "copying repo"
+# VALIDATE $? "copying repo"
 
 cp /RoboShop-Shell-Script-For-Alma-Linux/11-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
 
