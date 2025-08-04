@@ -68,9 +68,9 @@ git clone https://github.com/Sarthakx67/Roboshop-Shell-Script.git  #
 
 VALIDATE $? "copying repo"
 
-cp /home/ec2-user/Roboshop-Shell-Script/12-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
+cp /home/ec2-user/Roboshop-Shell-Script/11-user.service  /etc/systemd/system/user.service &>>$LOGFILE  #
 
-VALIDATE $? "copying catalogue.service"
+VALIDATE $? "copying user.service"
 
 systemctl daemon-reload &>>$LOGFILE
 
