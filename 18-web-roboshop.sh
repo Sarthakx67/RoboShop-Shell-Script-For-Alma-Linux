@@ -74,6 +74,6 @@ cp /root/RoboShop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/defau
 
 VALIDATE $? "copying roboshop config"
 
-systemctl start nginx  &>>$LOGFILE
+systemctl restart nginx  &>>$LOGFILE
 
 VALIDATE $? "Restarting Nginx"
