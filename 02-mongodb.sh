@@ -11,8 +11,6 @@ G="\e[32m"
 N="\e[0m"
 Y="\e[33m"
 
-sudo su -
-
 if [ $USERID -ne 0 ];
 then
     echo -e "$R ERROR:: Please run this script with root access $N"
