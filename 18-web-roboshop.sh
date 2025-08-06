@@ -3,8 +3,9 @@
 DATE=$(date +%F)
 LOGSDIR=/tmp
 
-SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+# Use basename to get just the script's filename
+SCRIPT_NAME=$(basename $0)
+LOGFILE=$LOGSDIR/$SCRIPT_NAME-$DATE.log
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -64,15 +65,17 @@ cd /  #
 
 VALIDATE $? "changing directory"
 
-# git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
-# VALIDATE $? "copying repo"
+VALIDATE $? "copying repo"
 
-touch /etc/yum.repos.d/roboshop.conf
-
-cp /root/RoboShop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
+cp /RoboShop-Shell-Script-For-Alma-Linux/17-roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE  #
 
 VALIDATE $? "copying roboshop config"
+
+systemctl start nginx  &>>$LOGFILE
+
+VALIDATE $? "starting Nginx"
 
 systemctl restart nginx  &>>$LOGFILE
 

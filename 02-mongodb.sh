@@ -3,8 +3,9 @@
 DATE=$(date +%F)
 LOGSDIR=/tmp
 
-SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+# Use basename to get just the script's filename
+SCRIPT_NAME=$(basename $0)
+LOGFILE=$LOGSDIR/$SCRIPT_NAME-$DATE.log
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -31,7 +32,15 @@ yum install epel-release vim unzip git -y
 
 VALIDATE $? "installing important applications"
 
-cp 01-mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git
+
+VALIDATE $? "Validate cloning of mongodb.sh"
+
+cd /RoboShop-Shell-Script-For-Alma-Linux
+
+VALIDATE $? "Validate cd to /RoboShop-Shell-Script-For-Alma-Linux"
+
+cp /RoboShop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 
 VALIDATE $? "Copied MongoDB repo into yum.repos.d"
 
