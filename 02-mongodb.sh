@@ -30,15 +30,15 @@ VALIDATE(){
 
 yum install epel-release vim unzip git -y
 
-VALIDATE $? "installing important applications"
+VALIDATE $? "installing important applications" 
 
-git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git #
 
-VALIDATE $? "Validate cloning of mongodb.sh"
+VALIDATE $? "Validate cloning of mongodb.sh"  #
 
-cd /RoboShop-Shell-Script-For-Alma-Linux
+cd /RoboShop-Shell-Script-For-Alma-Linux  #
 
-VALIDATE $? "Validate cd to /RoboShop-Shell-Script-For-Alma-Linux"
+VALIDATE $? "Validate cd to /RoboShop-Shell-Script-For-Alma-Linux"  #
 
 cp /RoboShop-Shell-Script-For-Alma-Linux/01-mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 

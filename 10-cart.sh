@@ -3,8 +3,9 @@
 DATE=$(date +%F)
 LOGSDIR=/tmp
 
-SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+# Use basename to get just the script's filename
+SCRIPT_NAME=$(basename $0)
+LOGFILE=$LOGSDIR/$SCRIPT_NAME-$DATE.log
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -72,11 +73,11 @@ cd /      #
 
 VALIDATE $? "changing directory"
 
-# git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git  #
 
-# VALIDATE $? "copying repo"
+VALIDATE $? "copying repo"
 
-cp /root/RoboShop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
+cp /RoboShop-Shell-Script-For-Alma-Linux/09-cart.service  /etc/systemd/system/cart.service &>>$LOGFILE  #
 
 VALIDATE $? "copying cart.service"
 
