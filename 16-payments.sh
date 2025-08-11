@@ -63,6 +63,8 @@ pip3.6 install -r requirements.txt &>>$LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
+cd /
+
 git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git #
 
 VALIDATE $? "Validate cloning of mongodb.sh"  #
