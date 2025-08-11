@@ -3,8 +3,9 @@
 DATE=$(date +%F)
 LOGSDIR=/tmp
 
-SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+# Use basename to get just the script's filename
+SCRIPT_NAME=$(basename $0)
+LOGFILE=$LOGSDIR/$SCRIPT_NAME-$DATE.log
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -26,6 +27,9 @@ VALIDATE(){
         echo -e "$2 ... $G SUCCESS $N"
     fi
 }
+setenforce 0  #
+
+yum install epel-release vim unzip git -y  #
 
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>$LOGFILE
 
