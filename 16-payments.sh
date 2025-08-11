@@ -3,8 +3,9 @@
 DATE=$(date +%F)
 LOGSDIR=/tmp
 
-SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+# Use basename to get just the script's filename
+SCRIPT_NAME=$(basename $0)
+LOGFILE=$LOGSDIR/$SCRIPT_NAME-$DATE.log
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -26,12 +27,23 @@ VALIDATE(){
         echo -e "$2 ... $G SUCCESS $N"
     fi
 }
+setenforce 0  #
+
+yum install epel-release vim unzip git -y  #
 
 yum install python36 gcc python3-devel -y &>>$LOGFILE
 
 VALIDATE $? "Installing python"
 
-useradd roboshop &>>$LOGFILE
+USERNAME="roboshop"
+
+if ! id "$USERNAME" &>/dev/null; then
+    echo "Creating user '$USERNAME'..."
+    useradd "$USERNAME"
+    echo "User '$USERNAME' created successfully."
+else
+    echo "User '$USERNAME' already exists. Skipping creation."
+fi
 
 mkdir /app  &>>$LOGFILE
 
@@ -51,7 +63,17 @@ pip3.6 install -r requirements.txt &>>$LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
-cp /home/centos/roboshop-shell/payment.service /etc/systemd/system/payment.service &>>$LOGFILE
+git clone https://github.com/Sarthakx67/RoboShop-Shell-Script-For-Alma-Linux.git #
+
+VALIDATE $? "Validate cloning of mongodb.sh"  #
+
+cd /RoboShop-Shell-Script-For-Alma-Linux  #
+
+VALIDATE $? "Validate cd to /RoboShop-Shell-Script-For-Alma-Linux"  #
+
+VALIDATE $? "Installing dependencies"
+
+cp /RoboShop-Shell-Script-For-Alma-Linux/15-payment.service /etc/systemd/system/payment.service &>>$LOGFILE
 
 VALIDATE $? "copying payment service"
 
