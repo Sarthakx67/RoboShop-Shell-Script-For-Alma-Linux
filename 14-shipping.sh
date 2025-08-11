@@ -3,8 +3,9 @@
 DATE=$(date +%F)
 LOGSDIR=/tmp
 
-SCRIPT_NAME=$0
-LOGFILE=$LOGSDIR/$0-$DATE.log
+# Use basename to get just the script's filename
+SCRIPT_NAME=$(basename $0)
+LOGFILE=$LOGSDIR/$SCRIPT_NAME-$DATE.log
 USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -26,59 +27,81 @@ VALIDATE(){
         echo -e "$2 ... $G SUCCESS $N"
     fi
 }
+setenforce 0  #
 
-yum install maven -y &>>$LOGFILE
+MYSQL_HOST="mysql.stallions.space"
+CART_HOST="cart.app.stallions.space"
+APP_USER="roboshop"
+APP_DIR="/app"
+NEW_DB_PASS="RoboShop@1" # Password for application users
 
-VALIDATE $? "Installing Maven"
+# --- Task: Install prerequisite packages ---
+echo "--> Installing prerequisite packages: EPEL, Maven, MySQL client..."
+yum install -y epel-release maven mysql 
 
-useradd roboshop &>>$LOGFILE
+# --- Task: Create Roboshop application user ---
+echo "--> Creating application user '$APP_USER'..."
+# This command creates a system user only if it doesn't already exist.
+id -u $APP_USER &>/dev/null || useradd -r -s /bin/nologin $APP_USER
 
-mkdir /app &>>$LOGFILE
+# --- Task: Ensure /app directory exists ---
+echo "--> Creating application directory '$APP_DIR'..."
+mkdir -p "$APP_DIR"
+chown "$APP_USER:$APP_USER" "$APP_DIR"
 
-curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip &>>$LOGFILE
+# --- Task: Download and unpack shipping artifact ---
+echo "--> Downloading and unpacking shipping application..."
+# We use a temporary file for the download to keep things clean.
+curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip
+# Unzip into the app directory, overwriting existing files if any.
+unzip -o /tmp/shipping.zip -d "$APP_DIR"
+# Ensure all extracted files are owned by the application user.
+chown -R "$APP_USER:$APP_USER" "$APP_DIR"
+# Clean up the downloaded zip file.
+rm -f /tmp/shipping.zip
 
-VALIDATE $? "Downloading shipping artifact"
+# --- Task: Build application with Maven ---
+echo "--> Building application with Maven (this may take a moment)..."
+# We run the build command from within the application directory.
+(cd "$APP_DIR" && mvn clean package)
 
-cd /app &>>$LOGFILE
+# --- Task: Create shipping systemd service file ---
+echo "--> Creating systemd service file for shipping..."
+# Using a 'here document' to write the multi-line service file.
+cat > /etc/systemd/system/shipping.service <<EOF
+[Unit]
+Description=Shipping Service
 
-VALIDATE $? "Moving to app directory"
- 
-unzip /tmp/shipping.zip &>>$LOGFILE
+[Service]
+User=${APP_USER}
+Environment="CART_ENDPOINT=${CART_HOST}:80"
+Environment="DB_HOST=${MYSQL_HOST}"
+Environment="DB_USER=shipping"
+Environment="DB_PASS=${NEW_DB_PASS}"
+ExecStart=/usr/bin/java -jar ${APP_DIR}/target/shipping-1.0.jar
+SyslogIdentifier=shipping
 
-VALIDATE $? "Unzipping shipping"
+[Install]
+WantedBy=multi-user.target
+EOF
 
-mvn clean package &>>$LOGFILE
+# --- Simplified Database Block ---
+# Note: These commands ignore errors, just like the Ansible playbook.
+# This is useful in case the schema or data has already been loaded.
 
-VALIDATE $? "packaging shipping app"
+echo "--> Loading application database schema..."
+mysql -h "${MYSQL_HOST}" -u"${APP_USER}" -p"${NEW_DB_PASS}" < "${APP_DIR}/db/schema.sql" 2>/dev/null
 
-mv target/shipping-1.0.jar shipping.jar &>>$LOGFILE
+echo "--> Renaming 'cities' table to 'codes'..."
+mysql -h "${MYSQL_HOST}" -u"${APP_USER}" -p"${NEW_DB_PASS}" cities -e 'RENAME TABLE cities TO codes;' 2>/dev/null
 
-VALIDATE $? "renaming shipping jar"
+echo "--> Loading master data into the database..."
+mysql -h "${MYSQL_HOST}" -u"${APP_USER}" -p"${NEW_DB_PASS}" cities < "${APP_DIR}/db/master-data.sql" 2>/dev/null
 
-cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service &>>$LOGFILE
+# --- Handler: Reload and restart shipping ---
+echo "--> Reloading systemd, enabling and restarting the shipping service..."
+systemctl daemon-reload
+systemctl enable shipping
+systemctl restart shipping
 
-VALIDATE $? "copying shipping service"
-
-systemctl daemon-reload &>>$LOGFILE
-
-VALIDATE $? "daemon-reload"
-
-systemctl enable shipping  &>>$LOGFILE
-
-VALIDATE $? "Enabling shipping"
-
-systemctl start shipping &>>$LOGFILE
-
-VALIDATE $? "Starting shipping"
-
-yum install mysql -y  &>>$LOGFILE
-
-VALIDATE $? "Installing MySQL client"
-
-mysql -h 172.19.10.40 -uroot -pRoboShop@1 < /app/schema/shipping.sql  &>>$LOGFILE
-
-VALIDATE $? "Loaded countries and cities info"
-
-systemctl restart shipping &>>$LOGFILE
-
-VALIDATE $? "Restarting shipping"
+echo ">>> Shipping Service installation and configuration complete!"
